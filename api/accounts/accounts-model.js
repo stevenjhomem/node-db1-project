@@ -6,7 +6,9 @@ const getAll = () => {
 }
 
 const getById = id => {
-  // DO YOUR MAGIC
+  // select * from accounts where id = 1
+  return db('accounts').where('id', id).first()
+  //if account defined like this does not exist, the function will result in 'undefined'
 }
 
 const create = account => {
