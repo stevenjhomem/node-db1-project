@@ -11,8 +11,9 @@ const getById = id => {
   //if account defined like this does not exist, the function will result in 'undefined'
 }
 
-const create = account => {
-  // DO YOUR MAGIC
+const create = async account => {
+  const [id] = await db('accounts').insert(account)
+  return getById(id)
 }
 
 const updateById = (id, account) => {
