@@ -25,7 +25,10 @@ md.checkAccountPayload,
 md.checkAccountNameUnique, 
 async (req, res, next) => {
   try{
-    const newAccount = await Account.create(req.body)
+    const newAccount = await Account.create({
+      name: req.body.name.trim(),
+      budget: req.body.budget
+    })
     res.status(201).json(newAccount)
   }
   catch(err){
@@ -37,10 +40,10 @@ router.put('/:id',
 md.checkAccountId, 
 md.checkAccountPayload,
 md.checkAccountPayload, 
-(req, res, next) => {
-  // DO YOUR MAGIC
+async (req, res, next) => {
   try{
-    res.json('update account')
+    const updated = await Account.updateById(req.params.id, req.body)
+    res.json(updated)
   }
   catch(err){
     next(err)
@@ -49,11 +52,11 @@ md.checkAccountPayload,
 
 router.delete('/:id',
 md.checkAccountId, 
-(req, res, next) => {
-  // DO YOUR MAGIC
+async (req, res, next) => {
   try{
-    res.json('delete account by id')
-  }
+    await Account.deleteById(req.params.id)
+    res.json(req.account)
+    }
   catch(err){
     next(err)
   }
